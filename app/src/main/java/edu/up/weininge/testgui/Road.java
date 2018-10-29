@@ -1,42 +1,51 @@
 package edu.up.weininge.testgui;
 
-import android.graphics.Canvas;
-import android.graphics.Color;
-import android.graphics.Paint;
+import java.util.HashMap;
 
-/** TODO this entire class needs to be redone
- *
- *  we need to sit and think out how to approach implementing roads
- *  9/23 Alex
- */
-public class Road {
+/**
+ * @author Alex Weininger, Andrew Lang, Daniel Borg, Niraj Mali
+ * @version October 24th, 2018
+ * https://github.com/alexweininger/game-state
+ **/
+public class Road extends Building {
 
-    protected int[][] points;
-    int position;
-    protected int[][] roadPoints = {{0,0},{0,0}, {0,0}, {0,0}};
+    private int startIntersectionID, endIntersectionID;
+    private static HashMap<String, Integer> checkResources = new HashMap<>();
+    /**
+     *
+     * @param startIntersectionID -
+     * @param endIntersectionID -
+     */
+    public Road(int startIntersectionID, int endIntersectionID, int ownerId) {
+        super("Road", 0, ownerId);
 
-    public Road(int[][] points, int position) {
-        this.points = points;
-        this.position = position;
+        this.startIntersectionID = startIntersectionID;
+        this.endIntersectionID = endIntersectionID;
+
     }
 
-    public void drawRoad(Canvas canvas) {
+    public int getStartIntersectionID() { return startIntersectionID; }
+    public int getEndIntersectionID() { return endIntersectionID; }
 
-        int inP = this.position;
-        int outP = this.position + 1;
+    /**
+     *
+     * @return string representation of a Road
+     */
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder("");
+        sb.append("Road{");
+        sb.append("startIntersectionID=");
+        sb.append(startIntersectionID);
+        sb.append(", endIntersectionID=");
+        sb.append(endIntersectionID);
+        sb.append('}');
 
-        Paint line = new Paint();
-        line.setColor(Color.DKGRAY);
-        line.setStyle(Paint.Style.FILL);
-        line.setStrokeWidth(10);
+        return sb.toString();
+    }
 
-        roadPoints[0][0] = this.points[outP][0];
-        roadPoints[0][1] = this.points[outP][1];
-
-        roadPoints[1][0] = this.points[inP][0];
-        roadPoints[1][1] = this.points[inP][1];
-
-        canvas.drawLine(roadPoints[0][0], roadPoints[0][1], roadPoints[1][0], roadPoints[1][1], line);
-
+    public static void roadResourcePriceMake(){
+        checkResources.put("brick", 1);
+        checkResources.put("log", 1);
     }
 }

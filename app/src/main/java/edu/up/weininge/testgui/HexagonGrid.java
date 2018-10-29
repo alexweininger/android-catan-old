@@ -22,9 +22,9 @@ public class HexagonGrid extends boardSurfaceView {
     protected int[] robberLocation = {2, 2};
 
     // TODO roads
-    ArrayList<Road> roads = new ArrayList<Road>();
+    ArrayList<RoadDrawable> roads = new ArrayList<RoadDrawable>();
 
-    ArrayList<Hexagon> hexagons = new ArrayList<Hexagon>();
+    ArrayList<HexagonDrawable> hexagons = new ArrayList<HexagonDrawable>();
 
     public HexagonGrid (Context context, int x, int y, int size, int margin){
         super(context);
@@ -56,12 +56,12 @@ public class HexagonGrid extends boardSurfaceView {
 	}
 
     protected void drawGrid(Canvas canvas) {
-        for(Hexagon h: hexagons) {
+        for(HexagonDrawable h: hexagons) {
             h.drawHexagon(canvas);
         }
 
         // TODO roads
-        for(Road r: roads) {
+        for(RoadDrawable r: roads) {
             r.drawRoad(canvas);
         }
     }
@@ -69,7 +69,7 @@ public class HexagonGrid extends boardSurfaceView {
     // method that generates the individual hexagon objects from the Hexagon class
     protected void getHexagons(int x, int y, int size) {
 
-        hexagons = new ArrayList<Hexagon>();
+        hexagons = new ArrayList<HexagonDrawable>();
 
         int[] rows = {1, 1, 0, 1, 1};
         int[] hexagonsInEachRow = {3, 4, 5, 4, 3};
@@ -89,11 +89,11 @@ public class HexagonGrid extends boardSurfaceView {
 
                 offsetX = (i % 2 == 0)? (int) this.width/2 + margin/2:0;
 
-                Hexagon hexagon = new Hexagon(this.getContext(), offsetX + x + (int) ((this.width + this.margin) * (j + rows[i])), y + (((this.height) * 3)/4 + this.margin) * i, size, color, isRobber);
+                HexagonDrawable hexagon = new HexagonDrawable(this.getContext(), offsetX + x + (int) ((this.width + this.margin) * (j + rows[i])), y + (((this.height) * 3)/4 + this.margin) * i, size, color, isRobber);
 
                 //int[][] points = hexagon.getHexagonPoints();
 
-                //roads.add(new Road(points, 0));
+                //roads.add(new RoadDrawable(points, 0));
 
                 hexagons.add(hexagon);
             }
